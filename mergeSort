@@ -1,0 +1,64 @@
+import java.io.*;
+import java.util.*;
+import java.text.*;
+import java.math.*;
+import java.util.regex.*;
+
+public class Solution {
+
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        int length = scanner.nextInt();
+        int[] nums = new int[length];
+        for (int i = 0; i < length; i++)
+            nums[i] = scanner.nextInt();
+        
+        int[] sortedNums=merge(nums);
+        
+        System.out.print('[');
+        for(int i=0 ; i< length ; i++){
+            System.out.print(sortedNums[i]);
+            if(i != length - 1)
+                System.out.print(",");
+            
+        }    
+         System.out.print(']');
+        
+    }
+    
+    
+    public static int[] merge(int[] nums) {
+        int inputLength = nums.length;
+        if (inputLength < 2) return nums;
+
+        int[] arr1 = merge(Arrays.copyOfRange(nums, 0, inputLength / 2));
+        int[] arr2 = merge(Arrays.copyOfRange(nums, inputLength / 2, inputLength));
+        return sort(arr1, arr2);
+
+    }
+
+    private static int[] sort(int[] nums1, int[] nums2) {
+        int length1 = nums1.length;
+        int length2 = nums2.length;
+        int[] ret = new int[length1 + length2];
+
+        int i = 0;
+        int j = 0;
+        int k = 0;
+
+        while (i < length1 && j < length2) {
+            if (nums1[i] > nums2[j]) {
+                ret[k++] = nums2[j++];
+            } else ret[k++] = nums1[i++];
+        }
+
+        while (i < length1) {
+            ret[k++] = nums1[i++];
+        }
+        while (j < length2) {
+            ret[k++] = nums2[j++];
+        }
+
+        return ret;
+    }
+}
