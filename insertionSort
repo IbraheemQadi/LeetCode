@@ -1,0 +1,49 @@
+import java.io.*;
+import java.util.*;
+import java.text.*;
+import java.math.*;
+import java.util.regex.*;
+
+public class Solution {
+
+    public static void main(String[] args) {
+        
+        Scanner scanner = new Scanner(System.in);
+        int length = scanner.nextInt();
+        int[] nums = new int[length];
+        for (int i = 0; i < length; i++)
+            nums[i] = scanner.nextInt();
+        
+        int[] sortedNums=sortArray(nums);
+        
+        System.out.print('[');
+        for(int i=0 ; i< length ; i++){
+            System.out.print(sortedNums[i]);
+            if(i != length - 1)
+                System.out.print(",");
+            
+        }    
+         System.out.print(']');
+
+    }
+    
+     public static int[] sortArray(int[] nums) {
+
+        for (int i = 1; i < nums.length; i++) {
+            int iTemp = i;
+            int j = i - 1;
+            while (j >= 0 && nums[i] < nums[j]) {
+                swap(nums, i--, j--);
+            }
+            i = iTemp;
+
+        }
+        return nums;
+    }
+
+    private static void swap(int[] nums, int i, int j) {
+        int temp = nums[i];
+        nums[i] = nums[j];
+        nums[j] = temp;
+    }
+}
